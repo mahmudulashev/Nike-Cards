@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Apple Store - Imtihon Topshiriq Loyihasi</title>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-        /*===== VARIABLES CSS =====*/
+        /* ========================================================
+           1. DESIGN SYSTEM VA CSS O'ZGARUVCHILARI
+           ======================================================== */
         :root {
-            --dark-color-lighten: #f2f5ff;
-            --red-card: #a62121;
-            --blue-card: #4bb7e6;
-            --green-card: #2f7d5b;
-            --btn: #141414;
-            --btn-hover: #3a3a3a;
-            --text: #fbf7f7;
-            --dark-text: #141414;
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-blue: #0071e3;
+            --accent-blue-hover: #0077ed;
+            --badge-bg: #f2f2f7;
+            --border-color: #e5e5ea;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 15px 35px rgba(0, 113, 227, 0.15);
+            --radius-card: 22px;
+            --radius-btn: 980px;
+            --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /*===== RESET =====*/
+        /* RESET & BASE */
         *,
         ::before,
         ::after {
@@ -30,25 +37,13 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             min-height: 100vh;
-            width: 100%;
-            background-color: var(--dark-color-lighten);
-            font-family: "Montserrat", sans-serif;
             display: flex;
             flex-direction: column;
-        }
-
-        button {
-            font-family: "Montserrat", sans-serif;
-            display: inline-block;
-            border: none;
-            outline: none;
-            border-radius: 0.2rem;
-            color: var(--text);
-            cursor: pointer;
+            -webkit-font-smoothing: antialiased;
         }
 
         a {
@@ -56,257 +51,585 @@
             color: inherit;
         }
 
-        img {
-            max-width: 100%;
-            height: 100%;
-            user-select: none;
+        button {
+            font-family: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: none;
         }
 
-        /*===== HEADER =====*/
-        .site-header,
-        .site-footer {
+        /* ========================================================
+           2. NAVIGATION BAR (RESPONSIVE HEADER)
+           ======================================================== */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
             width: 100%;
-            padding: 1.2rem 4rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            color: var(--dark-text);
+            align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0;
-        }
-
-        .nav {
             display: flex;
             align-items: center;
+            gap: 0.5rem;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        .logo svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--text-main);
+        }
+
+        .nav-menu {
+            display: flex;
             gap: 2rem;
             font-size: 0.95rem;
             font-weight: 600;
+            color: var(--text-secondary);
         }
 
-        .nav-button {
-            background-color: var(--btn);
-            padding: 0.7rem 1.4rem;
-            font-weight: 600;
-            transition: 300ms ease;
+        .nav-link {
+            transition: var(--transition);
         }
 
-        .nav-button:hover {
-            background-color: var(--btn-hover);
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
         }
 
-        /*===== CARD =====*/
-        .container {
-            flex: 1;
-            width: min(1180px, 100%);
-            margin: auto;
-            padding: 3rem 2rem;
+        .cart-box {
+            position: relative;
+            background: rgba(0, 113, 227, 0.08);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-btn);
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        .cart-box:hover {
+            background: rgba(0, 113, 227, 0.15);
+        }
+
+        .cart-badge {
+            background: var(--accent-blue);
+            color: white;
+            padding: 0.15rem 0.55rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ========================================================
+           3. HERO HEADER SECTION
+           ======================================================== */
+        .hero {
+            text-align: center;
+            padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ========================================================
+           4. PRODUCT GRID CONTAINER (CSS GRID RESPONSIVE)
+           ======================================================== */
+        .products-grid {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto 5rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
         }
 
-        .card {
+        /* ADVANCED CARD COMPONENT */
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
             position: relative;
-            padding: 1rem;
-            width: 350px;
-            height: 450px;
-            box-shadow: -1px 15px 30px -12px rgb(32, 32, 32);
-            border-radius: 0.9rem;
-            background-color: var(--red-card);
-            color: var(--text);
-            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
         }
 
-        .card-blue {
-            background: var(--blue-card);
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(0, 113, 227, 0.3);
         }
 
-        .card-green {
-            background: var(--green-card);
+        /* CARD HEADER (BADGE & WISHLIST) */
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
         }
 
-        .product-image {
-            height: 230px;
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            background: var(--badge-bg);
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge.hot {
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .fav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f5f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .fav-btn:hover {
+            background: #e8e8ed;
+            transform: scale(1.1);
+        }
+
+        .fav-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: var(--text-secondary);
+            stroke-width: 2;
+            transition: var(--transition);
+        }
+
+        .fav-btn.active svg {
+            fill: #ff3b30;
+            stroke: #ff3b30;
+        }
+
+        /* IMAGE WRAPPER */
+        .img-box {
             width: 100%;
-            transform: translate(0, -1.5rem);
-            transition: transform 500ms ease-in-out;
-            filter: drop-shadow(5px 10px 15px rgba(8, 9, 13, 0.4));
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0 1.2rem 0;
         }
 
-        .product-info {
-            text-align: center;
+        .product-img {
+            max-height: 195px;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.08));
         }
 
-        .card:hover .product-image {
-            transform: translate(-1.5rem, -7rem) rotate(-20deg);
+        .product-card:hover .product-img {
+            transform: scale(1.08);
         }
 
-        .product-info h2 {
-            font-size: 1.4rem;
+        /* RATING & REVIEWS */
+        .rating-box {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            color: #ffb300;
+            margin-bottom: 0.4rem;
             font-weight: 600;
         }
 
-        .product-info p {
-            margin: 0.4rem;
+        .reviews {
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+
+        .product-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .product-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+            min-height: 2.6rem;
+        }
+
+        /* SPECIFICATION PILLS (SIZE & SPECS) */
+        .specs-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-btn {
+            flex: 1;
+            padding: 0.5rem 0.3rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            color: var(--text-main);
             font-size: 0.8rem;
             font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
         }
 
-        .price {
-            font-size: 1.2rem;
-            font-weight: 500;
+        .spec-btn.active {
+            background: var(--text-main);
+            color: #ffffff;
+            border-color: var(--text-main);
         }
 
-        .btn {
+        .spec-btn:hover:not(.active) {
+            border-color: var(--text-secondary);
+        }
+
+        /* CARD FOOTER */
+        .card-bottom {
+            margin-top: auto;
             display: flex;
-            justify-content: space-evenly;
             align-items: center;
-            margin-top: 0.8rem;
+            justify-content: space-between;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .price-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .price-val {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
         .buy-btn {
-            background-color: var(--btn);
-            padding: 0.6rem 3.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: 300ms ease;
+            background: var(--accent-blue);
+            color: white;
+            padding: 0.7rem 1.4rem;
+            border-radius: var(--radius-btn);
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
         }
 
         .buy-btn:hover {
-            background-color: var(--btn-hover);
+            background: var(--accent-blue-hover);
+            box-shadow: 0 4px 15px rgba(0, 113, 227, 0.35);
         }
 
-        .fav {
-            box-sizing: border-box;
-            background: #fff;
-            padding: 0.5rem 0.5rem;
-            border: 1px solid#000;
-            display: grid;
-            place-items: center;
+        .buy-btn.added {
+            background: #34c759;
         }
 
-        .svg {
-            height: 25px;
-            width: 25px;
-            fill: #fff;
-            transition: all 500ms ease;
+        /* ========================================================
+           5. FOOTER
+           ======================================================== */
+        footer {
+            margin-top: auto;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
 
-        .fav:hover .svg {
-            fill: #000;
-        }
-
-        .site-footer {
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        @media screen and (max-width: 1100px) {
-            .container {
-                flex-wrap: wrap;
+        /* ========================================================
+           6. RESPONSIVE ADAPTABILITY (MOBIL UCHUN MOSLASHUVCHANLIK)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
         }
 
-        @media screen and (max-width: 800px) {
-            .container {
-                padding: 2rem 0;
-                width: 100%;
-                flex-direction: column;
-                gap: 3rem;
+        @media (max-width: 680px) {
+            .site-header {
+                padding: 0.8rem 1rem;
             }
 
-            .site-header,
-            .site-footer {
-                padding: 1rem 1.25rem;
+            .nav-menu {
+                display: none; /* Mobil ekranda menyuni ixchamlashtirish */
             }
 
-            .nav {
-                gap: 1rem;
+            .hero {
+                padding: 2.5rem 1rem 1rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr; /* Mobil telefonda 1 ta ustun */
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .product-card {
+                padding: 1.4rem;
+            }
+
+            .img-box {
+                height: 180px;
             }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- NAVIGATSIYA -->
     <header class="site-header">
-        <a class="logo" href="#">Nike</a>
-        <nav class="nav">
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">Sale</a>
-            <button class="nav-button">Sign In</button>
-        </nav>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 170 170">
+                    <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.9-14.37-6.08-3.38-2.74-7.3-7.46-11.78-14.15-6.8-10.16-12.08-21.46-15.86-33.89-3.78-12.43-5.67-24.32-5.67-35.67 0-16.14 4.09-29.28 12.27-39.42 8.18-10.14 18.17-15.34 29.97-15.59 4.34 0 9.28 1.18 14.83 3.53 5.55 2.35 9.4 3.53 11.55 3.53 1.9 0 5.76-1.18 11.57-3.53 5.81-2.35 10.55-3.48 14.23-3.41 10.56.5 19.38 4.14 26.46 10.92 7.08 6.78 11.77 15.42 14.07 25.92-10.14 6.13-15.11 14.75-14.9 25.86.21 9.07 3.82 16.74 10.83 23.01 4.79 4.3 10.23 7.15 16.32 8.55-2.19 6.45-5.12 12.87-8.79 19.26zM119.22 31.81c0-7.36 2.68-14.28 8.04-20.76 5.36-6.48 12.01-10.45 19.95-11.91.24 1.13.36 2.19.36 3.18 0 7.42-2.73 14.45-8.19 21.09-5.46 6.64-12.07 10.6-19.83 11.88-.13-.99-.33-2.15-.33-3.48z"/>
+                </svg>
+                <span>Store</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">Barchasi</a>
+                <a href="#" class="nav-link">Watch</a>
+                <a href="#" class="nav-link">AirPods</a>
+                <a href="#" class="nav-link">Aksessuarlar</a>
+            </nav>
+            <div class="cart-box">
+                <span>Savat</span>
+                <span class="cart-badge" id="cart-counter">0</span>
+            </div>
+        </div>
     </header>
 
-    <main class="container">
-        <section class="card">
-            <div class="product-image">
-                <img src="https://i.ibb.co/cNWqxGx/red.png" alt="OFF-white Red Edition" draggable="false" />
-            </div>
-            <div class="product-info">
-                <h2>Nike X OFF-white</h2>
-                <p>The 10: Air Jordan 1 off-white - Chicago</p>
-                <div class="price">$999</div>
-            </div>
-            <div class="btn">
-                <button class="buy-btn">Buy Now</button>
-                <button class="fav">
-                    <svg class="svg" id="i-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" stroke="#000"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                        <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
+    <!-- SAHIFA SARLAVHASI -->
+    <section class="hero">
+        <div class="hero-subtitle">Imtihon Topshiriq Loyihasi</div>
+        <h1 class="hero-title">Apple Gadjetlar Kolleksiyasi</h1>
+        <p class="hero-desc">Barcha mahsulotlar uchun o'lchamlarni tanlang va savatga qo'shish imkoniyati</p>
+    </section>
+
+    <!-- MAHSULOT KARTOCHKALARI (GRID) -->
+    <main class="products-grid">
+
+        <!-- 1-MAHSULOT: APPLE WATCH ULTRA 2 -->
+        <article class="product-card">
+            <div class="card-top">
+                <span class="badge hot">YANGILIK</span>
+                <button class="fav-btn" onclick="toggleFav(this)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
                 </button>
             </div>
-        </section>
-        <section class="card card-blue">
-            <div class="product-image">
-                <img src="https://i.ibb.co/0JKpmgd/blue.png" alt="OFF-white Blue Edition" draggable="false" />
+
+            <div class="img-box">
+                <img src="assets/images/watch-ultra.png" alt="Apple Watch Ultra 2" class="product-img">
             </div>
-            <div class="product-info">
-                <h2>Nike X OFF-white</h2>
-                <p>Air Jordan 1 Retro High "Off-White - UNC" sneakers</p>
-                <div class="price">$1599</div>
+
+            <div class="rating-box">
+                ★ ★ ★ ★ ★ <span class="reviews">(4.9 / 142 baho)</span>
             </div>
-            <div class="btn">
-                <button class="buy-btn">Buy Now</button>
-                <button class="fav">
-                    <svg class="svg" id="i-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" stroke="#000"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                        <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
+
+            <h2 class="product-title">Apple Watch Ultra 2</h2>
+            <p class="product-desc">Titanium korpus va suvdan hamda zarbadan himoyalangan sport tasma</p>
+
+            <div class="specs-container">
+                <button class="spec-btn active" onclick="selectSpec(this)">49mm Titanium</button>
+                <button class="spec-btn" onclick="selectSpec(this)">GPS + Cellular</button>
+            </div>
+
+            <div class="card-bottom">
+                <div class="price-box">
+                    <span class="price-label">Narxi</span>
+                    <span class="price-val">$799</span>
+                </div>
+                <button class="buy-btn" onclick="addToBag('Apple Watch Ultra 2', this)">Savatga</button>
+            </div>
+        </article>
+
+        <!-- 2-MAHSULOT: AIRPODS MAX -->
+        <article class="product-card">
+            <div class="card-top">
+                <span class="badge">PRO AUDIO</span>
+                <button class="fav-btn" onclick="toggleFav(this)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
                 </button>
             </div>
-        </section>
-        <section class="card card-green">
-            <div class="product-image">
-                <img src="https://i.ibb.co/cNWqxGx/red.png" alt="OFF-white Green Edition" draggable="false" />
+
+            <div class="img-box">
+                <img src="assets/images/airpods-max.png" alt="AirPods Max" class="product-img">
             </div>
-            <div class="product-info">
-                <h2>Nike X OFF-white</h2>
-                <p>Air Jordan 1 custom green edition sneakers</p>
-                <div class="price">$1299</div>
+
+            <div class="rating-box">
+                ★ ★ ★ ★ ★ <span class="reviews">(4.8 / 98 baho)</span>
             </div>
-            <div class="btn">
-                <button class="buy-btn">Buy Now</button>
-                <button class="fav">
-                    <svg class="svg" id="i-star-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-                        stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                        <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
+
+            <h2 class="product-title">AirPods Max</h2>
+            <p class="product-desc">Yuqori sifatli Hi-Res ovoz va shovqinni faol bo'g'ish tizimi</p>
+
+            <div class="specs-container">
+                <button class="spec-btn active" onclick="selectSpec(this)">ANC Mode</button>
+                <button class="spec-btn" onclick="selectSpec(this)">Smart Case</button>
+            </div>
+
+            <div class="card-bottom">
+                <div class="price-box">
+                    <span class="price-label">Narxi</span>
+                    <span class="price-val">$549</span>
+                </div>
+                <button class="buy-btn" onclick="addToBag('AirPods Max', this)">Savatga</button>
+            </div>
+        </article>
+
+        <!-- 3-MAHSULOT: APPLE WATCH SERIES 9 -->
+        <article class="product-card">
+            <div class="card-top">
+                <span class="badge hot">OMMABOP</span>
+                <button class="fav-btn" onclick="toggleFav(this)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
                 </button>
             </div>
-        </section>
+
+            <div class="img-box">
+                <img src="assets/images/watch-series9.png" alt="Apple Watch Series 9" class="product-img">
+            </div>
+
+            <div class="rating-box">
+                ★ ★ ★ ★ ★ <span class="reviews">(5.0 / 210 baho)</span>
+            </div>
+
+            <h2 class="product-title">Apple Watch Series 9</h2>
+            <p class="product-desc">Yangi S9 protsessori va barmoqlarni ikki marta urish imo-ishorasi</p>
+
+            <div class="specs-container">
+                <button class="spec-btn active" onclick="selectSpec(this)">41mm</button>
+                <button class="spec-btn" onclick="selectSpec(this)">45mm</button>
+            </div>
+
+            <div class="card-bottom">
+                <div class="price-box">
+                    <span class="price-label">Narxi</span>
+                    <span class="price-val">$399</span>
+                </div>
+                <button class="buy-btn" onclick="addToBag('Apple Watch Series 9', this)">Savatga</button>
+            </div>
+        </article>
+
     </main>
 
-    <footer class="site-footer">
-        <span>2026 Nike Cards</span>
-        <span>Just Do It</span>
+    <!-- PODVAL -->
+    <footer>
+        <p>© 2026 Apple Store Imtihon Topshiriqlari Loyihasi. Barcha huquqlar saqlangan.</p>
     </footer>
+
+    <!-- INTERAKTIV JAVASCRIPT MANTIQI -->
+    <script>
+        let totalCart = 0;
+
+        // 1. O'lcham tugmalarini tanlash (Specification Pill Selector)
+        function selectSpec(clickedBtn) {
+            const container = clickedBtn.parentElement;
+            const buttons = container.querySelectorAll('.spec-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            clickedBtn.classList.add('active');
+        }
+
+        // 2. Saralanganlar (Wishlist Fav Heart) tugmasi
+        function toggleFav(favBtn) {
+            favBtn.classList.toggle('active');
+        }
+
+        // 3. Savatga qo'shish funksiyasi
+        function addToBag(productName, buyBtn) {
+            totalCart++;
+            document.getElementById('cart-counter').textContent = totalCart;
+
+            // Tugma holatini o'zgartirish
+            const originalText = buyBtn.textContent;
+            buyBtn.classList.add('added');
+            buyBtn.textContent = 'Qo\'shildi ✓';
+
+            setTimeout(() => {
+                buyBtn.classList.remove('added');
+                buyBtn.textContent = originalText;
+            }, 1500);
+        }
+    </script>
 </body>
 
 </html>
